@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.solutions.CheckIfBynaryString;
 import org.example.solutions.CheckIfOneStringSwap;
+import org.example.solutions.DecodeXORArray;
 import org.example.solutions.NearestValidPoint;
 
 public class Main {
@@ -16,7 +17,11 @@ public class Main {
     // cIBS.testProblem();
 
     // Check id one string swap
-    CheckIfOneStringSwap cIOSS = new CheckIfOneStringSwap();
-    cIOSS.testProblem();
+//    CheckIfOneStringSwap cIOSS = new CheckIfOneStringSwap();
+//    cIOSS.testProblem();
+
+    // Decode XOR array
+    DecodeXORArray dXORA = new DecodeXORArray();
+    dXORA.testProblem();
   }
 }
