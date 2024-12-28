@@ -13,10 +13,6 @@ int countGoodRectangles(vector<vector<int>> &rectangles)
   for (int i = 0; i < rectangles.size(); i++)
   {
     int minRec = min(rectangles[i][0], rectangles[i][1]);
-    if (!acc.count(minRec))
-    {
-      acc[minRec] = 0;
-    }
     acc[minRec]++;
     if (minRec > resp)
     {
