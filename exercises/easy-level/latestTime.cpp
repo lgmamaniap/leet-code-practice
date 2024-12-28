@@ -6,46 +6,20 @@ using namespace std;
 
 string maximumTime(string time)
 {
-  char sh1, sh2, sm1, sm2;
-  string response = "";
-
-  if (time[0] == '?')
-  {
-    sh1 = time[1] != '?'
-              ? time[1] - '0' > 3
-                    ? '1'
-                    : '2'
-              : '2';
-    response.push_back(sh1);
-  }
-  else
-  {
-    response.push_back(time[0]);
-  }
-
-  if (time[1] == '?')
-  {
-    sh2 = time[0] != '?'
-              ? time[0] - '0' > 1
-                    ? '3'
-                    : '9'
-              : '3';
-    response.push_back(sh2);
-  }
-  else
-  {
-    response.push_back(time[1]);
-  }
-
-  response.push_back(':');
-
-  sm1 = time[3] == '?' ? '5' : time[3];
-  response.push_back(sm1);
-
-  sm2 = time[4] == '?' ? '9' : time[4];
-  response.push_back(sm2);
-
-  return response;
+  string resp = time;
+  resp[0] = resp[0] != '?'
+                ? resp[0]
+                : (resp[1] == '?' || resp[1] <= '3'
+                       ? '2'
+                       : '1');
+  resp[1] = resp[1] != '?'
+                ? resp[1]
+                : (resp[0] == '?' || resp[0] > '1'
+                       ? '3'
+                       : '9');
+  resp[3] = resp[3] != '?' ? resp[3] : '5';
+  resp[4] = resp[4] != '?' ? resp[4] : '9';
+  return resp;
 }
 
 int main()
