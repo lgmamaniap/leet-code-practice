@@ -21,7 +21,7 @@ int countBalls(int lowLimit, int highLimit)
 
   int acc[50] = {};
   int idx = numberSum(lowLimit);
-  int max = 0;
+  int resp = 0;
   int counter = lowLimit;
   int reset = lowLimit % 10;
 
@@ -31,8 +31,7 @@ int countBalls(int lowLimit, int highLimit)
     {
       if (counter > highLimit) break;
       acc[idx]++;
-      if (acc[idx] > max)
-        max = acc[idx];
+      resp = max(resp, acc[idx]);
       counter++;
       idx++;
     }
@@ -42,7 +41,7 @@ int countBalls(int lowLimit, int highLimit)
       idx = numberSum(counter);
   }
 
-  return max;
+  return resp;
 }
 
 int main()
