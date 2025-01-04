@@ -3,32 +3,16 @@
 
 using namespace std;
 
-int calculate(int n) {
-  if(n < 5) return 0;
-    int acc[255];
-    for (int i = 1; i <= n; i++) {
-      acc[i] = i * i;
-    }
-    
-    int count = 0, j;
-    
-    for (int i = 3; i < n - 1; i++) {
-      j = i + 1;
-      while (acc[i] + acc[j] <= acc[n]) {
-        
-        if (acc[i] + acc[j] == acc[n]) {
-          count += 2;
-        }
-        j++;
-      }
-    }
-    return count;
-}
-
 int countTriples(int n) {
   int count = 0;
-  for (int i = 1; i <= n; i++) {
-    count += calculate(i);
+  for (int i = 3; i <= n; i++) {
+    for (int j = i + 1; j <= n; j++) {
+      int ab = (i * i) + (j * j);
+      int r = sqrt(ab);
+      
+      if (r*r == ab && r <= n)
+        count += 2;
+    }
   }
   return count;
 }
