@@ -1,78 +1,49 @@
 // 2047. Number of Valid Words in a Sentence
 #include <iostream>
-#include <regex>
 #include <map>
+#include <sstream>
 
 using namespace std;
 
-int countValidWords(string sentence) {
-    int count = 0, idx = 0;
+bool isValidWord(const string& word) {
+    map<char, int> cMap;
+    for (int i = 0; i < word.size(); i++) {
+        char c = word[i];
+        if (isdigit(c)) return false;
 
-    while(idx < sentence.size()) {
-        int it = idx;
-        map<char, pair<int, int>> chars;
-        bool isDigit = false;
+        cMap[c]++;
 
-        if (sentence[idx] == ' ') {
-            idx++;
-            continue;
+        if (c == '-')
+            if (cMap[c] > 1 || i == 0 || i == word.size() - 1)
+                return false;
+        
+        if (c != '-' && c < 'a') {
+            if (cMap[c] > 1 || i != word.size() - 1)
+                return false;
+            if (word.size() > 1 && i == word.size() - 1 && word[i - 1] < 'a')
+                return false;
         }
-
-        string acc = "";
-
-        while (it < sentence.size() && sentence[it] != ' ') {
-            if (isdigit(sentence[it])) {
-                isDigit = true;
-            }
-            chars[sentence[it]].first++;
-            chars[sentence[it]].second = it;
-
-            acc += sentence[it];
-
-            it++;
-        }
-
-
-
-        bool isValid = true;
-        pair<int, int> item;
-
-        if (!isDigit) {
-            if (chars.count('-')) {
-                item = chars['-'];
-                if (item.first > 1) isValid = false;
-                if (item.first == 1 && (item.second == idx || item.second == it - 1)) isValid = false;
-            }
-
-            if (chars.count('!')) {
-                item = chars['!'];
-                if (item.first > 1) isValid = false;
-                if (item.first == 1 && item.second != it - 1) isValid = false;
-            }
-
-            if (chars.count('.')) {
-                item = chars['.'];
-                if (item.first > 1) isValid = false;
-                if (item.first == 1 && item.second != it - 1) isValid = false;
-            }
-
-            if (chars.count(',')) {
-                item = chars[','];
-                if (item.first > 1) isValid = false;
-                if (item.first == 1 && item.second != it - 1) isValid = false;
-            }
-
-            if (isValid) count++;
-        }
-
-        idx = it++;
     }
+    return true;
+}
+
+int countValidWords(string sentence) {
+    istringstream ss(sentence);
+    string token;
+    int count = 0;
+
+    while(ss >> token) {
+        if (isValidWord(token)) count++;
+    }
+
     return count;
 }
 
 int main()
 {
-  
+  cout << countValidWords("cat and  dog") << endl;
+  cout << countValidWords("!this  1-s b8d!") << endl;
+  cout << countValidWords("alice and  bob are playing stone-game10") << endl;
   return 0;
 }
 
