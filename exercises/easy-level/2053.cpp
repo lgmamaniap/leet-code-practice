@@ -1,32 +1,26 @@
 // 2053. Kth Distinct String in an Array
 #include <iostream>
 #include <vector>
-#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
 string kthDistinct(vector<string>& arr, int k) {
-    unordered_set<string> words, uniques;
+    unordered_map<string, int> words;
+    vector<string> uniques;
+
     for (string word : arr) {
-        if (!words.count(word)) {
-            words.insert(word);
-            uniques.insert(word);
-        } else {
-            uniques.erase(word);
-        }
+        words[word]++;
+    }
+
+    for (string word : arr) {
+        if (words[word] == 1)
+            uniques.push_back(word);
     }
 
     if (uniques.size() < k) return "";
 
-    int count = 0;
-
-    for (string word : arr) {
-        if (uniques.count(word)) count++;
-
-        if (count == k) return word;
-    }
-
-    return "";
+    return uniques[k - 1];
 }
 
 int main()
