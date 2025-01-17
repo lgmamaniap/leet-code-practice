@@ -5,20 +5,22 @@
 using namespace std;
 
 int timeRequiredToBuy(vector<int>& tickets, int k) {
-    int count = 0;
-    while(tickets[k] > 0) {
-        count++;
-        int front = tickets.front() - 1;
-        tickets.erase(tickets.begin());
+    int turns = 0;
+    int value = tickets[k];
 
-        if (front > 0) tickets.push_back(front);
-
-        if (k == 0 && front == 0) break;
-
-        k--;
-        if (k < 0) k = tickets.size() - 1;
+    for(int i = 0; i <= k; i++){
+        turns += min(value, tickets[i]);
     }
-    return count;
+
+    for(int i = k + 1; i < tickets.size(); i++){
+        if(tickets[i] < value) {
+            turns += min(value, tickets[i]);
+        } else{
+            turns += min(value, tickets[i]) - 1;
+        }
+    }
+
+    return turns;
 }
 
 int main()
