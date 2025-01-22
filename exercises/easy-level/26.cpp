@@ -2,19 +2,20 @@
 
 #include <iostream>
 #include <vector>
-#include <set>
 
 using namespace std;
 
 int removeDuplicates(vector<int>& nums) {
-    set<int> s(nums.begin(), nums.end());
-
-    int i = 0;
-    for (auto const& x : s) {
-        nums[i++] = x;
+    int i = 0, j = 1;
+    while(j < nums.size()) {
+        if (nums[i] < nums[j]) {
+            i++;
+            swap(nums[i], nums[j]);
+        }
+        j++;
     }
 
-    return s.size();
+    return i + 1;
 }
 
 int main()
