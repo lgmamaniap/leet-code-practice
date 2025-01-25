@@ -44,6 +44,27 @@ int main()
   b->right = new TreeNode(3);
   
   cout << isSameTree(a, b) << endl;
+  
+  a->val = 1;
+  a->left = new TreeNode(2);
+  a->right = nullptr;
+  
+  b->val = 1;
+  b->left = nullptr;
+  b->right = new TreeNode(2);
+  
+  cout << isSameTree(a, b) << endl;
+  
+  a->val = 1;
+  a->left = new TreeNode(2);
+  a->right = new TreeNode(1);
+  
+  b->val = 1;
+  b->left = new TreeNode(1);
+  b->right = new TreeNode(2);
+  
+  cout << isSameTree(a, b) << endl;
+  
   return 0;
 }
 
