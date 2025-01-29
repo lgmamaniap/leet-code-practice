@@ -30,6 +30,18 @@ ListNode *reverseList(ListNode *head)
   return prev; // `prev` es el nuevo head de la lista invertida
 }
 
+ListNode *reverseListRecursive(ListNode *head)
+{
+  if (head == NULL || head->next == NULL)
+  {
+    return head;
+  }
+  ListNode *temp = reverseListRecursive(head->next);
+  head->next->next = head;
+  head->next = NULL;
+  return temp;
+}
+
 int main()
 {
   return 0;
