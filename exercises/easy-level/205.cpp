@@ -6,22 +6,31 @@ using namespace std;
 
 bool isIsomorphic(string s, string t)
 {
-  unordered_map<char, char> sMap, tMap;
+  char sMap[256] = {0}, tMap[256] = {0};
 
   for (int i = 0; i < s.size(); i++)
   {
-    if (tMap.count(t[i])) {
+    if (tMap[t[i]])
+    {
       if (tMap[t[i]] != s[i])
         return false;
-    } else
+    }
+    else
+    {
       tMap[t[i]] = s[i];
+    }
 
-    if (sMap.count(s[i])) {
+    if (sMap[s[i]])
+    {
       if (sMap[s[i]] != t[i])
         return false;
-    } else
+    }
+    else
+    {
       sMap[s[i]] = t[i];
+    }
   }
+
   return true;
 }
 
