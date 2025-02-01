@@ -6,19 +6,13 @@ using namespace std;
 
 bool isPowerOfThree(int n)
 {
-  if (n < 0)
+  if (n <= 0)
     return false;
-
-  long long aux = 1;
-
-  while (aux <= n)
+  while (n % 3 == 0)
   {
-    if (aux == n)
-      return true;
-    aux = aux * 3;
+    n /= 3;
   }
-
-  return false;
+  return n == 1;
 }
 
 int main()
